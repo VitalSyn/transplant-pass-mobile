@@ -31,7 +31,7 @@ function HomeStackScreen() {
 // Bottom Tab Navigator
 function BottomTabNavigation() {
   function focusedColor(focused: boolean) {
-    return focused ? Colors.default : 'gray'; // Example colors
+    return focused ? Colors.default : 'gray';
   }
 
   return (
