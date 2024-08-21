@@ -4,29 +4,35 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#e5ecf7',
   },
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "20%",
-    marginBottom: "10%",
-    width: "100%"
+
+  containerFormLogin: {
+
+    width: '80%',
+    height: '75%',
+    borderRadius: 30,
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  firstText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 30,
-    color: Colors.default,
+
+  h1: {
+    fontSize: 32,
+    color: '#B5151C',
+    margin: 30,
   },
   submitButton: {
-    height: 56,
+    height: 45,
+    width: '60%',
     alignItems: "center",
     justifyContent: "center",
-    margin: 16,
-    marginTop: 30,
+    margin: 'auto',
+    marginTop: 20,
     borderRadius: 30,
-    backgroundColor: Colors.default,
+    backgroundColor: '#B5151C',
 
     shadowColor: "#000",
     shadowOffset: {
@@ -35,7 +41,7 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
-    elevation: 24,
+    elevation: 4,
   },
   input: {
     paddingHorizontal: 12,
@@ -54,36 +60,21 @@ export default StyleSheet.create({
     borderRadius: 8,
     height: 56,
   },
-  viewTablet: {
-    width: '50%',
-    alignSelf: 'center'
-  },
+
   submitText: {
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.white,
   },
   validation: {
+    flex: 1,
     paddingLeft: 20,
     marginBottom: -10,
     marginTop: -10,
     color: Colors.text_error,
   },
   seccondButton: {
-    flexDirection: 'row',
-    borderRadius: 30,
-    margin: 10,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.background,
-    borderWidth: 2,
-    borderColor: Colors.default,
+    marginBottom: 30,
   },
-  textSeccondButton: {
-    margin: 5,
-    fontWeight: '700',
-    fontSize: 18,
-    color: Colors.default,
-  },
+  textSeccondButton: {}
 });
