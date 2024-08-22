@@ -51,8 +51,8 @@ export class FloatingLabelInput extends Component<any> {
           ? Colors.gray
           : !text
             ? !isFocused
-              ? Colors.gray
-              : Colors.gray
+              ? Colors.gray_tab
+              : Colors.default
             : Colors.default,
     };
     return (

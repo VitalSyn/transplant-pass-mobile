@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from './src/Context/AuthContext';
-import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/Routes/Routes';
+import { StatusBar } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 

@@ -1,14 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { useNavigationHandler } from "@/src/Hooks/navigation";
-import { FloatingLabelInput } from "@/src/Components/FloatingInputLabel";
-import { LoadingIndicator } from "@/src/Components/LoadingIndicator";
 import images from "@/src/Constants/images";
 import styles from "./styles";
-import AuthContext from "@/src/Context/AuthContext";
 
 export default function Initial() {
-  const { user } = useContext(AuthContext);
   const navigate = useNavigationHandler();
   const [email, setEmail] = useState<string>('')
 
@@ -34,13 +30,12 @@ export default function Initial() {
         onPress={() => navigate.navigate("Login")}
       >
         <Text style={styles.textLogin}>Login</Text>
-        {/* <LoadingIndicator isLoading={true} /> */}
       </TouchableOpacity>
 
 
       <TouchableOpacity
         style={styles.seccondButton}
-        onPress={() => navigate.navigate("Login")}
+        onPress={() => navigate.navigate("Register")}
       >
         <Text style={styles.textSeccondButton}>Cadastro</Text>
       </TouchableOpacity>

@@ -9,6 +9,8 @@ import images from '../Constants/images';
 import Initial from '../Pages/Initial';
 import Login from '../Pages/Login';
 import AuthContext from '../Context/AuthContext';
+import Register from '../Pages/Register';
+import Home from '../Pages/Home';
 
 const Drawer = createDrawerNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
@@ -17,8 +19,7 @@ const Stack = createNativeStackNavigator();
 function HomeStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Initial" component={Initial} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 }
@@ -26,7 +27,9 @@ function HomeStackScreen() {
 function AuthStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   );
 }
@@ -38,7 +41,7 @@ function BottomTabNavigation() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Initial"
+      initialRouteName="Home"
       activeColor={Colors.default}
       inactiveColor="gray"
       barStyle={{ backgroundColor: Colors.white, height: 70 }}
@@ -60,26 +63,10 @@ function BottomTabNavigation() {
           ),
         }}
       />
-      <BottomTab.Screen
-        name="Category"
-        component={Login}
-        options={{
-          title: "Login",
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={images.Home}
-              style={{
-                width: 26,
-                height: 26,
-                tintColor: focusedColor(focused),
-              }}
-            />
-          ),
-        }}
-      />
+
       <BottomTab.Screen
         name="Cart"
-        component={Initial}
+        component={Home}
         options={{
           title: "Busca",
           tabBarIcon: ({ focused }) => (
@@ -96,7 +83,7 @@ function BottomTabNavigation() {
       />
       <BottomTab.Screen
         name="Sell"
-        component={Initial}
+        component={Home}
         options={{
           title: "Pedidos",
           tabBarIcon: ({ focused }) => (
@@ -113,7 +100,7 @@ function BottomTabNavigation() {
       />
       <BottomTab.Screen
         name="Account"
-        component={Initial}
+        component={Home}
         options={{
           title: "Perfil",
           tabBarIcon: ({ focused }) => (
@@ -144,10 +131,8 @@ export default function Routes() {
 
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName="Login"
+      screenOptions={{ headerShown: false, }}
+      initialRouteName="Initial"
     >
       {signed ? (
         <Stack.Screen name="DrawerStackScreen" component={DrawerStackScreen} />
