@@ -15,7 +15,7 @@ export default StyleSheet.create({
 
 
   containerFormLogin: {
-    flex: 1 / 2,
+    flex: 1/25,
     marginTop: '50%',
     margin: 'auto',
     width: '80%',
@@ -51,8 +51,8 @@ export default StyleSheet.create({
     elevation: 4,
   },
   input: {
-    paddingHorizontal: 12,
     width: '85%',
+    paddingHorizontal: 12,
     paddingVertical: 2,
     borderWidth: 1,
     borderColor: Colors.gray_tab,
@@ -62,11 +62,15 @@ export default StyleSheet.create({
     marginTop: 10
   },
   inputError: {
+    width: '85%',
     paddingHorizontal: 12,
+    paddingVertical: 2,
     borderWidth: 1,
     borderColor: Colors.red,
+    backgroundColor: '#e5ecf799',
     borderRadius: 8,
     height: 56,
+    marginTop: 10
   },
 
   submitText: {

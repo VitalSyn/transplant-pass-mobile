@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, Image, SafeAreaView } from "react-native";
+import { Text, View, TouchableOpacity, Image, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 import styles from "./styles";
 import { validateEmail } from "../../Utils";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -7,7 +7,6 @@ import AuthContext from "../../Context/AuthContext";
 import { useNavigationHandler } from "@/src/Hooks/navigation";
 import { FloatingLabelInput } from "@/src/Components/FloatingInputLabel";
 import { LoadingIndicator } from "@/src/Components/LoadingIndicator";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type RootStackParamList = {
   BottomTab: undefined;
@@ -99,73 +98,82 @@ export default function Login() {
   }, [form]);
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView style={styles.scroll}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
-        <View style={styles.containerFormLogin}>
-          <View>
-            <Text style={styles.h1}>Login</Text>
-          </View>
-
-          <View style={!!validation?.email ? styles.inputError : styles.input}>
-            <FloatingLabelInput
-              label="E-mail"
-              text={form.email}
-              value={form.email}
-              returnKeyType="next"
-              autoCapitalize={"none"}
-              keyboardType={"email-address"}
-              onChangeText={(email: string) => setForm({ ...form, email })}
-            />
-          </View>
-
-          {!validation?.email && (
-            <Text style={styles.validation}>{validation?.email}</Text>
-          )}
-
-          <View style={!!validation?.password ? styles.inputError : styles.input}>
-            <FloatingLabelInput
-              label="Senha"
-              secureText={true}
-              text={form.password}
-              value={form.password}
-              returnKeyType="send"
-              autoCapitalize={"none"}
-              onChangeText={(password: string) => setForm({ ...form, password })}
-            />
-          </View>
-
-
-          {!validation?.password && (
-            <Text style={styles.validation}>{validation?.password}</Text>
-          )}
-
-          {!validation.msg && (
-            <Text style={styles.validation}>{validation?.msg}</Text>
-          )}
-
-          <TouchableOpacity
-            style={styles.submitButton}
-            disabled={isSubmiting}
-            onPress={onLoginPress}
-
+      <KeyboardAvoidingView
+          style={styles.scroll}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          enabled
           >
-            <LoadingIndicator isLoading={isSubmiting} />
-            {!isSubmiting && <Text style={styles.submitText}>Entrar</Text>}
-          </TouchableOpacity>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
 
-          <Text style={styles.textFirst}>
-            Ainda não é cadastrado?
-          </Text>
+          <View style={styles.containerFormLogin}>
+            <View>
+              <Text style={styles.h1}>Login</Text>
+            </View>
 
-          <TouchableOpacity
-            style={styles.seccondButton}
-            onPress={() => navigate.navigate("Register")}
-          >
-            <Text style={styles.textSeccond}>Cadastre-se agora</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={!!validation?.email ? styles.inputError : styles.input}>
+              <FloatingLabelInput
+                label="E-mail"
+                text={form.email}
+                value={form.email}
+                returnKeyType="next"
+                autoCapitalize={"none"}
+                keyboardType={"email-address"}
+                onChangeText={(email: string) => setForm({ ...form, email })}
+                />
+            </View>
 
-      </KeyboardAwareScrollView>
+            {!validation?.email && (
+              <Text style={styles.validation}>{validation?.email}</Text>
+            )}
+
+            <View style={!!validation?.password ? styles.inputError : styles.input}>
+              <FloatingLabelInput
+                label="Senha"
+                secureText={true}
+                text={form.password}
+                value={form.password}
+                returnKeyType="send"
+                autoCapitalize={"none"}
+                onChangeText={(password: string) => setForm({ ...form, password })}
+                />
+            </View>
+
+
+            {!validation?.password && (
+              <Text style={styles.validation}>{validation?.password}</Text>
+            )}
+
+            {!validation.msg && (
+              <Text style={styles.validation}>{validation?.msg}</Text>
+            )}
+
+            <TouchableOpacity
+              style={styles.submitButton}
+              disabled={isSubmiting}
+              onPress={onLoginPress}
+              
+              >
+              <LoadingIndicator isLoading={isSubmiting} />
+              {!isSubmiting && <Text style={styles.submitText}>Entrar</Text>}
+            </TouchableOpacity>
+
+            <Text style={styles.textFirst}>
+              Ainda não é cadastrado?
+            </Text>
+
+            <TouchableOpacity
+              style={styles.seccondButton}
+              onPress={() => navigate.navigate("Register")}
+              >
+              <Text style={styles.textSeccond}>Cadastre-se agora</Text>
+            </TouchableOpacity>
+          </View>
+
+        </ScrollView>
+      </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
