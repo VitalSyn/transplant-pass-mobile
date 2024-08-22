@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -6,37 +6,34 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../Constants/Colors';
 import images from '../Constants/images';
-import Home from '../Pages/Home';
+import Initial from '../Pages/Initial';
 import Login from '../Pages/Login';
+import AuthContext from '../Context/AuthContext';
 import Register from '../Pages/Register';
+import Home from '../Pages/Home';
 
-// Definindo o Drawer Navigator
 const Drawer = createDrawerNavigator();
-
-// Definindo o Bottom Tab Navigator
 const BottomTab = createMaterialBottomTabNavigator();
-
-// Definindo o Stack Navigator
 const Stack = createNativeStackNavigator();
 
-// Stack Navigator
 function HomeStackScreen() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Home" component={Home} />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Login" component={Login} />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Register" component={Register} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 }
 
-// Bottom Tab Navigator
+function AuthStackScreen() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Initial" component={Initial} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+    </Stack.Navigator>
+  );
+}
+
 function BottomTabNavigation() {
   function focusedColor(focused: boolean) {
     return focused ? Colors.default : 'gray';
@@ -66,7 +63,7 @@ function BottomTabNavigation() {
           ),
         }}
       />
-      
+
       <BottomTab.Screen
         name="Cart"
         component={Home}
@@ -122,25 +119,26 @@ function BottomTabNavigation() {
   );
 }
 
-// Drawer Navigator
-export default function App() {
+function DrawerStackScreen() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="HomeTabs" screenOptions={{ headerShown: false }}>
-        <Drawer.Screen name="HomeTabs" component={BottomTabNavigation} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
+    <Drawer.Navigator initialRouteName="HomeTabs" screenOptions={{ headerShown: false }}>
+      <Drawer.Screen name="HomeTabs" component={BottomTabNavigation} />
+    </Drawer.Navigator>)
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-});
+export default function Routes() {
+  const { signed } = useContext(AuthContext);
+
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, }}
+      initialRouteName="Initial"
+    >
+      {signed ? (
+        <Stack.Screen name="DrawerStackScreen" component={DrawerStackScreen} />
+      ) : (
+        <Stack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+      )}
+    </Stack.Navigator>
+  );
+}
