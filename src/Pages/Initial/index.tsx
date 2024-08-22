@@ -7,14 +7,13 @@ import images from "@/src/Constants/images";
 import styles from "./styles";
 import AuthContext from "@/src/Context/AuthContext";
 
-export default function Home() {
+export default function Initial() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigationHandler();
   const [email, setEmail] = useState<string>('')
 
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.header}>
         <Image source={images.Logo} style={styles.img} />
         <Text style={styles.firstText}>

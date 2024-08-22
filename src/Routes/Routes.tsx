@@ -6,7 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../Constants/Colors';
 import images from '../Constants/images';
-import Home from '../Pages/Home';
+import Initial from '../Pages/Initial';
 import Login from '../Pages/Login';
 import AuthContext from '../Context/AuthContext';
 
@@ -17,7 +17,8 @@ const Stack = createNativeStackNavigator();
 function HomeStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Initial" component={Initial} />
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 }
@@ -37,7 +38,7 @@ function BottomTabNavigation() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Initial"
       activeColor={Colors.default}
       inactiveColor="gray"
       barStyle={{ backgroundColor: Colors.white, height: 70 }}
@@ -78,7 +79,7 @@ function BottomTabNavigation() {
       />
       <BottomTab.Screen
         name="Cart"
-        component={Home}
+        component={Initial}
         options={{
           title: "Busca",
           tabBarIcon: ({ focused }) => (
@@ -95,7 +96,7 @@ function BottomTabNavigation() {
       />
       <BottomTab.Screen
         name="Sell"
-        component={Home}
+        component={Initial}
         options={{
           title: "Pedidos",
           tabBarIcon: ({ focused }) => (
@@ -112,7 +113,7 @@ function BottomTabNavigation() {
       />
       <BottomTab.Screen
         name="Account"
-        component={Home}
+        component={Initial}
         options={{
           title: "Perfil",
           tabBarIcon: ({ focused }) => (
