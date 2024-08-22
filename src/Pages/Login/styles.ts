@@ -2,17 +2,24 @@ import Colors from "@/src/Constants/Colors";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#e5ecf7',
   },
 
-  containerFormLogin: {
+  scroll: {
+    flex: 1,
+    backgroundColor: '#e5ecf7',
+    width: '100%',
+    height: '100%',
+  },
 
+
+  containerFormLogin: {
+    flex: 1/2,
+    marginTop: '50%',
+    margin: 'auto',
     width: '80%',
-    height: '75%',
+    height: '55%',
     borderRadius: 30,
     backgroundColor: Colors.white,
     justifyContent: 'center',
@@ -22,11 +29,11 @@ export default StyleSheet.create({
   h1: {
     fontSize: 32,
     color: '#B5151C',
-    margin: 30,
+    margin: 45,
   },
   submitButton: {
     height: 45,
-    width: '60%',
+    width: '70%',
     alignItems: "center",
     justifyContent: "center",
     margin: 'auto',
@@ -45,16 +52,16 @@ export default StyleSheet.create({
   },
   input: {
     paddingHorizontal: 12,
+    width: '85%',
     paddingVertical: 2,
-    margin: 16,
     borderWidth: 1,
-    borderColor: Colors.gray,
+    borderColor: Colors.gray_tab,
+    backgroundColor: '#e5ecf799',
     borderRadius: 8,
     height: 56,
   },
   inputError: {
     paddingHorizontal: 12,
-    margin: 16,
     borderWidth: 1,
     borderColor: Colors.red,
     borderRadius: 8,
@@ -63,7 +70,6 @@ export default StyleSheet.create({
 
   submitText: {
     fontSize: 20,
-    fontWeight: "bold",
     color: Colors.white,
   },
   validation: {
@@ -76,5 +82,12 @@ export default StyleSheet.create({
   seccondButton: {
     marginBottom: 30,
   },
-  textSeccondButton: {}
+  textFirst: {
+    color: Colors.gray_tab,
+    marginTop: 20,
+  },
+  textSeccond: {
+    color: '#187249',
+    textDecorationLine: 'underline',
+  },
 });

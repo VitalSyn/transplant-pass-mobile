@@ -8,6 +8,7 @@ import Colors from '../Constants/Colors';
 import images from '../Constants/images';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
+import Register from '../Pages/Register';
 
 // Definindo o Drawer Navigator
 const Drawer = createDrawerNavigator();
@@ -26,8 +27,11 @@ function HomeStackScreen() {
         options={{ headerShown: false }}
         name="Home" component={Home} />
       <Stack.Screen
-        
+        options={{ headerShown: false }}
         name="Login" component={Login} />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Register" component={Register} />
     </Stack.Navigator>
   );
 }
@@ -62,23 +66,7 @@ function BottomTabNavigation() {
           ),
         }}
       />
-      <BottomTab.Screen
-        name="Category"
-        component={Login}
-        options={{
-          title: "Login",
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={images.Home}
-              style={{
-                width: 26,
-                height: 26,
-                tintColor: focusedColor(focused),
-              }}
-            />
-          ),
-        }}
-      />
+      
       <BottomTab.Screen
         name="Cart"
         component={Home}

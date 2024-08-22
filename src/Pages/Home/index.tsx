@@ -41,7 +41,7 @@ export default function Home() {
 
       <TouchableOpacity
         style={styles.seccondButton}
-        onPress={() => navigate.navigate("Login")}
+        onPress={() => navigate.navigate("Register")}
       >
         <Text style={styles.textSeccondButton}>Cadastro</Text>
       </TouchableOpacity> 

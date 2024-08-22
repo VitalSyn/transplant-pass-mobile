@@ -4,10 +4,10 @@ import styles from "./styles";
 import { validateEmail } from "../../Utils";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import AuthContext from "../../Context/AuthContext";
-import images from "../../Constants/images";
 import { useNavigationHandler } from "@/src/Hooks/navigation";
 import { FloatingLabelInput } from "@/src/Components/FloatingInputLabel";
 import { LoadingIndicator } from "@/src/Components/LoadingIndicator";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type RootStackParamList = {
   BottomTab: undefined;
@@ -98,71 +98,74 @@ export default function Login() {
     })
   }, [form]);
   return (
-    <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView style={styles.scroll}>
 
-      <View style={ styles.containerFormLogin }>
-        <View>
-          <Text style={ styles.h1 }>Login</Text>
-        </View>
+          <View style={ styles.containerFormLogin }>
+            <View>
+              <Text style={ styles.h1 }>Login</Text>
+            </View>
 
-        <View style={!!validation?.email ? styles.inputError : styles.input}>
-          <FloatingLabelInput
-            label="E-mail"
-            text={form.email}
-            value={form.email}
-            returnKeyType="next"
-            autoCapitalize={"none"}
-            keyboardType={"email-address"}
-            onChangeText={(email: string) => setForm({ ...form, email })}
-          />
-        </View>
+            <View style={!!validation?.email ? styles.inputError : styles.input}>
+              <FloatingLabelInput
+                label="E-mail"
+                text={form.email}
+                value={form.email}
+                returnKeyType="next"
+                autoCapitalize={"none"}
+                keyboardType={"email-address"}
+                onChangeText={(email: string) => setForm({ ...form, email })}
+              />
+            </View>
 
-        {!validation?.email && (
-          <Text style={styles.validation}>{validation?.email}</Text>
-        )}
+            {!validation?.email && (
+              <Text style={styles.validation}>{validation?.email}</Text>
+            )}
 
-        <View style={!!validation?.password ? styles.inputError : styles.input}>
-          <FloatingLabelInput
-            label="Senha"
-            secureText={true}
-            text={form.password}
-            value={form.password}
-            returnKeyType="send"
-            autoCapitalize={"none"}
-            onChangeText={(password: string) => setForm({ ...form, password })}
-          />
-        </View>
+            <View style={!!validation?.password ? styles.inputError : styles.input}>
+              <FloatingLabelInput
+                label="Senha"
+                secureText={true}
+                text={form.password}
+                value={form.password}
+                returnKeyType="send"
+                autoCapitalize={"none"}
+                onChangeText={(password: string) => setForm({ ...form, password })}
+              />
+            </View>
 
 
-        {!validation?.password && (
-          <Text style={styles.validation}>{validation?.password}</Text>
-        )}
+            {!validation?.password && (
+              <Text style={styles.validation}>{validation?.password}</Text>
+            )}
 
-        {!validation.msg && (
-          <Text style={styles.validation}>{validation?.msg}</Text>
-        )}
+            {!validation.msg && (
+              <Text style={styles.validation}>{validation?.msg}</Text>
+            )}
 
-        <TouchableOpacity
-          style={styles.submitButton}
-          disabled={isSubmiting}
-          onPress={onLoginPress}
+            <TouchableOpacity
+              style={styles.submitButton}
+              disabled={isSubmiting}
+              onPress={onLoginPress}
 
-        >
-          <LoadingIndicator isLoading={isSubmiting} />
-          {!isSubmiting && <Text style={styles.submitText}>Entrar</Text>}
-        </TouchableOpacity>
+            >
+              <LoadingIndicator isLoading={isSubmiting} />
+              {!isSubmiting && <Text style={styles.submitText}>Entrar</Text>}
+            </TouchableOpacity>
 
-        <Text>
-          Ainda não é cadastrado?
-        </Text>
+            <Text style={ styles.textFirst }>
+              Ainda não é cadastrado?
+            </Text>
 
-        <TouchableOpacity
-          style={styles.seccondButton}
-          onPress={() => navigate.navigate("SignUp")}
-        >
-          <Text style={styles.textSeccondButton}>Criar conta</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+            <TouchableOpacity
+              style={styles.seccondButton}
+              onPress={() => navigate.navigate("Register")}
+            >
+              <Text style={styles.textSeccond}>Cadastre-se agora</Text>
+            </TouchableOpacity>
+          </View>
+
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
   );
 };
