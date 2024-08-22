@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
 import { authInstance, firestore } from '../Db/firebase';
-import { getStorageData, removeStorageData, setStorageData } from './localStorage';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { doc, getDoc, setDoc, updateDoc, collection } from 'firebase/firestore';
 import { View } from 'react-native';
 import Colors from '../Constants/Colors';
@@ -42,35 +42,56 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+const STORAGE_KEY = '@user_data';
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(authInstance, async (user: any) => {
-      try {
-        // Carrega o usuário do AsyncStorage
-        const storedUser = await getStorageData();
-        if (storedUser) {
-          setUser(storedUser);
-        }
+  const loadUserData = async () => {
+    try {
+      const storedUser = await AsyncStorage.getItem(STORAGE_KEY);
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (error) {
+      console.error('Failed to load user data from storage', error);
+    }
+  };
 
-        if (user) {
-          const userData: User = { id: user.uid || '', email: user.email || '', name: user.displayName || '', };
-          // Se o usuário do Firebase é diferente do usuário armazenado, atualiza o usuário no estado e no AsyncStorage
-          if (userData.id !== storedUser?.id) {
-            setUser(userData);
-            await setStorageData(userData);
-          }
+  const saveUserData = async (data: User | null) => {
+    try {
+      if (data) {
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } else {
+        await AsyncStorage.removeItem(STORAGE_KEY);
+      }
+    } catch (error) {
+      console.error('Failed to save user data to storage', error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(authInstance, async (firebaseUser) => {
+      setLoading(true);
+      try {
+        if (firebaseUser) {
+          const userData: User = { id: firebaseUser.uid, email: firebaseUser.email || '', name: firebaseUser.displayName || '' };
+          await saveUserData(userData);
+          setUser(userData);
         } else {
           setUser(null);
-          await removeStorageData();
+          await saveUserData(null);
         }
-        setLoading(false);
       } catch (error) {
-        console.error(error);
+        console.error('Error during authentication state change', error);
+      } finally {
+        setLoading(false);
       }
     });
+
+    loadUserData();
+    setLoading(false);
 
     return () => unsubscribe();
   }, []);
@@ -88,31 +109,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       const userData: User = { ...docSnapshot.data(), id: userCredential.user.uid } as User;
       setUser(userData);
-      setStorageData(userData)
+      await saveUserData(userData);
       return true;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error('Login error', error);
       return false;
     }
   };
 
   const createUser = async (data: User) => {
-    const create = await createUserWithEmailAndPassword(authInstance, data.email, data?.password || '');
-    if (create.user) {
+    try {
+      const create = await createUserWithEmailAndPassword(authInstance, data.email, data.password || '');
       const userDoc = doc(collection(firestore, 'users'), create.user.uid);
-      const userData = {
+
+      const userData: User = {
         name: data.name,
         phone: data.phone,
         email: data.email,
-      }
-      await setDoc(userDoc, {
-        ...userData,
-        created_at: new Date,
-      });
+        id: create.user.uid,
+        created_at: new Date(),
+      };
+
+      await setDoc(userDoc, userData);
       setUser(userData);
-      setStorageData(userDoc)
+      await saveUserData(userData);
       return true;
-    } else {
+    } catch (error) {
+      console.error('Create user error', error);
       return false;
     }
   };
@@ -122,13 +145,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const userDoc = doc(collection(firestore, 'users'), id);
       await updateDoc(userDoc, {
         ...data,
-        updated_at: new Date,
+        updated_at: new Date(),
       });
       setUser(data);
-      setStorageData(data);
+      await saveUserData(data);
       return true;
     } catch (error) {
-      console.log(error);
+      console.error('Update user error', error);
       return false;
     }
   };
@@ -137,19 +160,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await signOut(authInstance);
       setUser(null);
-      removeStorageData();
+      await saveUserData(null);
     } catch (error) {
-      console.error(error);
+      console.error('Sign out error', error);
     }
   };
 
   if (loading) {
     return (
-      <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.default }}>
-        <LoadingIndicator isLoading={loading} />;
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.default }}>
+        <LoadingIndicator isLoading={loading} />
       </View>
-    )
-
+    );
   }
 
   return (

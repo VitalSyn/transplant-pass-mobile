@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -8,27 +8,28 @@ import Colors from '../Constants/Colors';
 import images from '../Constants/images';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
+import AuthContext from '../Context/AuthContext';
 
-// Definindo o Drawer Navigator
 const Drawer = createDrawerNavigator();
-
-// Definindo o Bottom Tab Navigator
 const BottomTab = createMaterialBottomTabNavigator();
-
-// Definindo o Stack Navigator
 const Stack = createNativeStackNavigator();
 
-// Stack Navigator
 function HomeStackScreen() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
+  );
+}
+
+function AuthStackScreen() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 }
 
-// Bottom Tab Navigator
 function BottomTabNavigation() {
   function focusedColor(focused: boolean) {
     return focused ? Colors.default : 'gray';
@@ -130,25 +131,28 @@ function BottomTabNavigation() {
   );
 }
 
-// Drawer Navigator
-export default function App() {
+function DrawerStackScreen() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="HomeTabs" screenOptions={{ headerShown: false }}>
-        <Drawer.Screen name="HomeTabs" component={BottomTabNavigation} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
+    <Drawer.Navigator initialRouteName="HomeTabs" screenOptions={{ headerShown: false }}>
+      <Drawer.Screen name="HomeTabs" component={BottomTabNavigation} />
+    </Drawer.Navigator>)
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-});
+export default function Routes() {
+  const { signed } = useContext(AuthContext);
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Login"
+    >
+      {signed ? (
+        <Stack.Screen name="DrawerStackScreen" component={DrawerStackScreen} />
+      ) : (
+        <Stack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+      )}
+    </Stack.Navigator>
+  );
+}
