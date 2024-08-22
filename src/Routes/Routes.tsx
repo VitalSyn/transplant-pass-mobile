@@ -22,8 +22,12 @@ const Stack = createNativeStackNavigator();
 function HomeStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Home" component={Home} />
+      <Stack.Screen
+        
+        name="Login" component={Login} />
     </Stack.Navigator>
   );
 }

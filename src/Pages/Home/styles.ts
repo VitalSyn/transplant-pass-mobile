@@ -9,24 +9,39 @@ export default StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "20%",
-    marginBottom: "10%",
+    marginTop: "40%",
     width: "100%"
   },
-  firstText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 30,
-    color: Colors.default,
+
+  img: {
+    width: '45%',
+    height: '50%',
   },
+
+  firstText: {
+    fontSize: 35,
+    color: '#156B4395',
+    // fontFamily: 'Inter',
+  },
+
+  secondText: {
+    width: '80%',
+    fontSize: 12,
+    textAlign: 'center',
+    color: Colors.gray_tab,
+    margin: 'auto',
+    marginTop: 20,
+  },
+
   submitButton: {
-    height: 56,
+    height: 45,
+    width: '60%',
     alignItems: "center",
     justifyContent: "center",
-    margin: 16,
-    marginTop: 30,
+    margin: 'auto',
+    marginTop: 20,
     borderRadius: 30,
-    backgroundColor: Colors.default,
+    backgroundColor: '#B5151C',
 
     shadowColor: "#000",
     shadowOffset: {
@@ -35,55 +50,38 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
-    elevation: 24,
+    elevation: 4,
   },
-  input: {
-    paddingHorizontal: 12,
-    paddingVertical: 2,
-    margin: 16,
-    borderWidth: 1,
-    borderColor: Colors.gray,
-    borderRadius: 8,
-    height: 56,
-  },
-  inputError: {
-    paddingHorizontal: 12,
-    margin: 16,
-    borderWidth: 1,
-    borderColor: Colors.red,
-    borderRadius: 8,
-    height: 56,
-  },
-  viewTablet: {
-    width: '50%',
-    alignSelf: 'center'
-  },
-  submitText: {
-    fontSize: 20,
-    fontWeight: "bold",
+
+  textLogin: {
+    fontSize: 18,
     color: Colors.white,
   },
-  validation: {
-    paddingLeft: 20,
-    marginBottom: -10,
-    marginTop: -10,
-    color: Colors.text_error,
-  },
+
   seccondButton: {
-    flexDirection: 'row',
+    height: 45,
+    width: '60%',
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 'auto',
+    marginTop: -55,
     borderRadius: 30,
-    margin: 10,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.background,
-    borderWidth: 2,
-    borderColor: Colors.default,
+    backgroundColor: '#e5ecf7',
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+    elevation: 4,
   },
+
   textSeccondButton: {
     margin: 5,
     fontWeight: '700',
     fontSize: 18,
-    color: Colors.default,
+    color: '#B5151C',
   },
 });

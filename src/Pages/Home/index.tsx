@@ -14,25 +14,28 @@ export default function Home() {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <View style={styles.header}>
-        <Image source={images.Logo} style={{ width: 160, height: 80 }} />
-        <Text style={styles.firstText}>Seja bem vindo ao Bill</Text>
+        <Image source={images.Logo} style={ styles.img }/>
+        <Text style={styles.firstText}>
+          <Text style={{ fontWeight: 'bold' }}>Transplant 
+          </Text> Pass
+        </Text>
       </View>
 
-      <View style={styles.input}>
-        <FloatingLabelInput
-          label="E-mail"
-          text={email}
-          value={email}
-          returnKeyType="next"
-          autoCapitalize={"none"}
-          keyboardType={"email-address"}
-          onChangeText={(email: string) => setEmail(email)}
-        />
+      <View>
+        <Text style={styles.secondText}>Lorem ipsum dolor sit amet, 
+          consectetur adipiscing elit, 
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Text>
       </View>
 
-      <TouchableOpacity style={styles.submitButton}>
-        <LoadingIndicator isLoading={true} />
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => navigate.navigate("Login")}
+      >
+        <Text style={styles.textLogin}>Login</Text>
+        {/* <LoadingIndicator isLoading={true} /> */}
       </TouchableOpacity>
 
 
@@ -40,8 +43,8 @@ export default function Home() {
         style={styles.seccondButton}
         onPress={() => navigate.navigate("Login")}
       >
-        <Text style={styles.textSeccondButton}>Criar conta</Text>
-      </TouchableOpacity>
+        <Text style={styles.textSeccondButton}>Cadastro</Text>
+      </TouchableOpacity> 
     </SafeAreaView>
   );
 };
