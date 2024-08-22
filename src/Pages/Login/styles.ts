@@ -2,7 +2,7 @@ import Colors from "@/src/Constants/Colors";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
   },
 
@@ -15,7 +15,7 @@ export default StyleSheet.create({
 
 
   containerFormLogin: {
-    flex: 1/2,
+    flex: 1 / 2,
     marginTop: '50%',
     margin: 'auto',
     width: '80%',
@@ -59,6 +59,7 @@ export default StyleSheet.create({
     backgroundColor: '#e5ecf799',
     borderRadius: 8,
     height: 56,
+    marginTop: 10
   },
   inputError: {
     paddingHorizontal: 12,

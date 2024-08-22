@@ -41,7 +41,7 @@ export default StyleSheet.create({
     margin: 'auto',
     marginTop: 20,
     borderRadius: 30,
-    backgroundColor: '#B5151C',
+    backgroundColor: Colors.buttonRed,
 
     shadowColor: "#000",
     shadowOffset: {

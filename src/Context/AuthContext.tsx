@@ -21,8 +21,7 @@ interface User {
 interface AuthContextData {
   user: User | null;
   signed: boolean;
-  signOut: () => Promise<void>;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  signOutApp: () => Promise<void>;
   login: (email: string, password: string) => Promise<boolean>;
   updateUser: (data: User, id: string) => Promise<boolean>;
   createUser: (data: User) => Promise<boolean>;
@@ -31,8 +30,7 @@ interface AuthContextData {
 export const AuthContext = createContext<AuthContextData>({
   signed: false,
   user: null,
-  signOut: async () => { },
-  setUser: () => { },
+  signOutApp: async () => { },
   login: async () => false,
   updateUser: async () => false,
   createUser: async () => false,
@@ -73,10 +71,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authInstance, async (firebaseUser) => {
-      setLoading(true);
       try {
         if (firebaseUser) {
-          const userData: User = { id: firebaseUser.uid, email: firebaseUser.email || '', name: firebaseUser.displayName || '' };
+          const userDoc = doc(collection(firestore, 'users'), firebaseUser.uid);
+          const docSnapshot = await getDoc(userDoc);
+
+          if (!docSnapshot.exists()) {
+            console.log('No such user!');
+            return false;
+          }
+
+          const userData: User = { ...docSnapshot.data(), id: firebaseUser.uid } as User;
           await saveUserData(userData);
           setUser(userData);
         } else {
@@ -85,8 +90,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       } catch (error) {
         console.error('Error during authentication state change', error);
-      } finally {
-        setLoading(false);
       }
     });
 
@@ -166,21 +169,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.default }}>
-        <LoadingIndicator isLoading={loading} />
-      </View>
-    );
-  }
-
   return (
     <AuthContext.Provider
       value={{
         user,
         signed: !!user,
-        signOut: signOutApp,
-        setUser,
+        signOutApp,
         login,
         updateUser,
         createUser,
