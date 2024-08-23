@@ -3,4 +3,5 @@ export default {
   EyeOn: require("../../assets/images/eyeOn.png"),
   EyeOff: require("../../assets/images/eyeOff.png"),
   Home: require("../../assets/images/home.png"),
+  logoSplash: require("../../assets/images/LogoSplash.png"),
 }

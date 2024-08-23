@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../Constants/Colors';
 import images from '../Constants/images';
 import Initial from '../Pages/Initial';
+import Splash from '../Pages/SplashScreen';
 import Login from '../Pages/Login';
 import AuthContext from '../Context/AuthContext';
 import Register from '../Pages/Register';
@@ -27,6 +28,7 @@ function HomeStackScreen() {
 function AuthStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
@@ -132,7 +134,7 @@ export default function Routes() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, }}
-      initialRouteName="Initial"
+      initialRouteName="Splash"
     >
       {signed ? (
         <Stack.Screen name="DrawerStackScreen" component={DrawerStackScreen} />
