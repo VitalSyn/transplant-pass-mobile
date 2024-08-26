@@ -12,6 +12,8 @@ interface User {
   password?: string;
   name?: string;
   phone?: string;
+  cpf?: string;
+  cep?: string;
   created_at?: Date;
   updated_at?: Date;
   points?: number;
