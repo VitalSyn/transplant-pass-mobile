@@ -261,7 +261,7 @@ export default function Register() {
                 />
             </View>
             {passwordConfirmed && (
-              <Text>A confirmação da senha está incorreta</Text>
+              <Text style={ { color: 'red' } }>A confirmação da senha está incorreta</Text>
             )}
 
             <TouchableOpacity
