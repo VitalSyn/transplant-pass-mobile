@@ -15,6 +15,7 @@ import Calendar from '../Pages/Calendar';
 import Profile from '../Pages/Profile';
 import Notifications from '../Pages/Notifications';
 import Tragetory from '../Pages/Tragetory';
+import Onboarding from '../Pages/Onboarding';
 import Exams from '../Pages/Exams';
 
 const Drawer = createDrawerNavigator();
@@ -39,6 +40,7 @@ function AuthStackScreen() {
       <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
     </Stack.Navigator>
   );
 }

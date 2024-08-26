@@ -4,12 +4,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StackNavigationProp } from '@react-navigation/stack';
 import images from "@/src/Constants/images";
 import styles from './styles';
+import { useNavigationHandler } from '@/src/Hooks/navigation';
 
-type SplashScreenProps = {
-  navigation: StackNavigationProp<any>;
-};
-
-export default function SplashScreen({ navigation }: SplashScreenProps) {
+export default function SplashScreen() {
+  const navigate = useNavigationHandler();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -22,35 +20,35 @@ export default function SplashScreen({ navigation }: SplashScreenProps) {
       Animated.timing(fadeAnim, {
         toValue: 0,
         duration: 2000,
-        delay: 6000,
+        delay: 3000,
         useNativeDriver: true,
       }).start(() => {
-        navigation.replace('Initial');
+        navigate.navigate('Onboarding');
       });
     });
-  }, [fadeAnim, navigation]);
+  }, [fadeAnim]);
 
   return (
-      <LinearGradient
-        colors={['#126B43', '#1da756']}
-        style={styles.container}
-      >
-        <Animated.View
-          style={[
-            styles.header,
-            { opacity: fadeAnim, }
-          ]}>
-            <Image
-              source={ images.logoSplash }
-              style={styles.img} 
-              resizeMode="contain"
-            />
-            <Text style={styles.firstText}>
-              <Text style={{ fontWeight: 'bold' }}>Transplant
-              </Text> Pass
-          </Text>
-        </Animated.View>
-      </LinearGradient>
-        
+    <LinearGradient
+      colors={['#126B43', '#1da756']}
+      style={styles.container}
+    >
+      <Animated.View
+        style={[
+          styles.header,
+          { opacity: fadeAnim, }
+        ]}>
+        <Image
+          source={images.logoSplash}
+          style={styles.img}
+          resizeMode="contain"
+        />
+        <Text style={styles.firstText}>
+          <Text style={{ fontWeight: 'bold' }}>Transplant
+          </Text> Pass
+        </Text>
+      </Animated.View>
+    </LinearGradient>
+
   );
 }
