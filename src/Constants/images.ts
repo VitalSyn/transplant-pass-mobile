@@ -3,4 +3,6 @@ export default {
   EyeOn: require("../../assets/images/eyeOn.png"),
   EyeOff: require("../../assets/images/eyeOff.png"),
   Home: require("../../assets/images/home.png"),
+  LuaraIa: require("../../assets/images/lauraia.png"),
+  Profile: require("../../assets/images/photo.png"),
 }

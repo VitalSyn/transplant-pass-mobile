@@ -1,16 +1,20 @@
 import React, { useContext } from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../Constants/Colors';
-import images from '../Constants/images';
 import Initial from '../Pages/Initial';
 import Login from '../Pages/Login';
 import AuthContext from '../Context/AuthContext';
 import Register from '../Pages/Register';
 import Home from '../Pages/Home';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Chat from '../Pages/Chat';
+import Calendar from '../Pages/Calendar';
+import Profile from '../Pages/Profile';
+import Notifications from '../Pages/Notifications';
+import Tragetory from '../Pages/Tragetory';
+import Exams from '../Pages/Exams';
 
 const Drawer = createDrawerNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
@@ -20,6 +24,9 @@ function HomeStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Exams" component={Exams} />
+      <Stack.Screen name="Tragetory" component={Tragetory} />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 }
@@ -35,83 +42,51 @@ function AuthStackScreen() {
 }
 
 function BottomTabNavigation() {
-  function focusedColor(focused: boolean) {
-    return focused ? Colors.default : 'gray';
-  }
-
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeStackScreen"
       activeColor={Colors.default}
-      inactiveColor="gray"
-      barStyle={{ backgroundColor: Colors.white, height: 70 }}
+      inactiveColor="#7f8c8d"
+      barStyle={{ backgroundColor: '#ffffff', height: 70, paddingBottom: 5 }}
+      labeled={false} // Mostrar ou esconder labels
     >
       <BottomTab.Screen
         name="HomeStackScreen"
         component={HomeStackScreen}
         options={{
-          title: "Início",
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={images.Home}
-              style={{
-                width: 26,
-                height: 26,
-                tintColor: focusedColor(focused),
-              }}
-            />
-          ),
-        }}
-      />
-
-      <BottomTab.Screen
-        name="Cart"
-        component={Home}
-        options={{
-          title: "Busca",
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={images.Home}
-              style={{
-                width: 26,
-                height: 26,
-                tintColor: focusedColor(focused),
-              }}
-            />
+          tabBarLabel: 'Início',
+          tabBarIcon: ({ color }) => (
+            <Icon name="home-outline" color={color} size={24} />
           ),
         }}
       />
       <BottomTab.Screen
-        name="Sell"
-        component={Home}
+        name="Chat"
+        component={Chat}
         options={{
-          title: "Pedidos",
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={images.Home}
-              style={{
-                width: 26,
-                height: 26,
-                tintColor: focusedColor(focused),
-              }}
-            />
+          tabBarLabel: 'Chat',
+          tabBarIcon: ({ color }) => (
+            <Icon name="chatbubbles-outline" color={color} size={24} />
           ),
         }}
       />
       <BottomTab.Screen
-        name="Account"
-        component={Home}
+        name="Profile"
+        component={Profile}
         options={{
-          title: "Perfil",
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={images.Home}
-              style={{
-                width: 26,
-                height: 26,
-                tintColor: focusedColor(focused),
-              }}
-            />
+          tabBarLabel: 'Perfil',
+          tabBarIcon: ({ color }) => (
+            <Icon name="person-outline" color={color} size={24} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Calendar"
+        component={Calendar}
+        options={{
+          tabBarLabel: 'Calendário',
+          tabBarIcon: ({ color }) => (
+            <Icon name="calendar-outline" color={color} size={24} />
           ),
         }}
       />

@@ -19,11 +19,13 @@ export default {
   red: '#FF0000',
   gray: '#50515F',
   default: '#126B43',
-  drawer: "#F1F1F1",
+  drawer: '#F1F1F1',
   gray_tab: '#748c94',
   white: '#fff',
   text_selected: '#333333',
   text_error: '#eb4a46',
   background: '#f6f6f6',
-  buttonRed: '#B5151C'
+  buttonRed: '#B5151C',
+  background_button: '#C7E7D9',
+  background_types: '#F08474'
 };

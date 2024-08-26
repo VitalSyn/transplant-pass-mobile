@@ -4,14 +4,22 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 100
   },
 
   initialText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     color: Colors.default
+  },
+
+  backgroundButtonInformation: {
+    backgroundColor: Colors.background_button,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    width: 40,
+    height: 40,
+    marginRight: 5
   },
 
   exitButton: {
@@ -37,4 +45,5 @@ export default StyleSheet.create({
     fontSize: 20,
     color: Colors.white,
   },
+
 });
