@@ -21,6 +21,7 @@
     "@react-navigation/material-bottom-tabs": "^6.2.29",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
+    "@types/react-native-snap-carousel": "^3.8.11",
     "expo": "~51.0.28",
     "expo-font": "~12.0.9",
     "expo-linear-gradient": "^13.0.2",
