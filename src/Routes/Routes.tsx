@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,6 +10,7 @@ import Login from '../Pages/Login';
 import AuthContext from '../Context/AuthContext';
 import Register from '../Pages/Register';
 import Home from '../Pages/Home';
+import Onboarding from '../Pages/Onboarding';
 
 const Drawer = createDrawerNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
@@ -27,6 +27,7 @@ function HomeStackScreen() {
 function AuthStackScreen() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
@@ -35,7 +36,7 @@ function AuthStackScreen() {
 }
 
 function BottomTabNavigation() {
-  function focusedColor(focused: boolean) {
+  function focusedColor(focused: boolean): string {
     return focused ? Colors.default : 'gray';
   }
 
@@ -127,18 +128,39 @@ function DrawerStackScreen() {
 }
 
 export default function Routes() {
-  const { signed } = useContext(AuthContext);
+  try {
+    const { signed } = useContext(AuthContext);
 
-  return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false, }}
-      initialRouteName="Initial"
-    >
-      {signed ? (
-        <Stack.Screen name="DrawerStackScreen" component={DrawerStackScreen} />
-      ) : (
-        <Stack.Screen name="AuthStackScreen" component={AuthStackScreen} />
-      )}
-    </Stack.Navigator>
-  );
+    return (
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="Initial"
+      >
+        {signed ? (
+          <Stack.Screen name="DrawerStackScreen" component={DrawerStackScreen} />
+        ) : (
+          <Stack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+        )}
+      </Stack.Navigator>
+    );
+  } catch (error) {
+    console.error("Erro nas rotas principais:", error);
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>Ocorreu um erro ao carregar as rotas.</Text>
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    color: "red",
+  },
+});
