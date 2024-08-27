@@ -4,7 +4,7 @@
     "slug": "transplant-pass",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon-logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -18,7 +18,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alexjoubert.transplantpass"
     },
     "web": {
       "bundler": "metro",
@@ -27,6 +28,11 @@
     },
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0db5af31-f174-4fa7-8b28-9d2c21d4a8f2"
+      }
     }
   }
 }
