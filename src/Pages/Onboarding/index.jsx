@@ -22,7 +22,7 @@ const CarouselWithSteps = ({ navigation }) => {
               source={require('../../../assets/images/Onboarding1.png')} // Substitua pelo caminho da sua imagem
               style={{ width: 200, height: 200 }}
             />
-            <Text style={{ color: '#126B43', fontSize: 28, fontWeight: 'bold', textAlign: 'center', marginTop: 20 }}>
+            <Text style={{ color: '#126B43', fontSize: 999, fontWeight: 'bold', textAlign: 'center', marginTop: 20 }}>
               Acompanhe seu processo
             </Text>
             <Text style={{ color: '#666', fontSize: 16, textAlign: 'center', marginTop: 10 }}>
@@ -30,6 +30,7 @@ const CarouselWithSteps = ({ navigation }) => {
                Vivamus laoreet justo
               .
             </Text>
+            
           </View>
         );
       case 1:
