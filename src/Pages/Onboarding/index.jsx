@@ -25,7 +25,7 @@ const CarouselWithSteps = ({ navigation }) => {
             <Text style={{ color: '#126B43', fontSize: 999, fontWeight: 'bold', textAlign: 'center', marginTop: 20 }}>
               Acompanhe seu processo
             </Text>
-            <Text style={{ color: '#666', fontSize: 16, textAlign: 'center', marginTop: 10 }}>
+            <Text style={{ color: '#666', fontSize: 32, textAlign: 'center', marginTop: 10 }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula
                Vivamus laoreet justo
               .
