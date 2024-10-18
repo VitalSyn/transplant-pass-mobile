@@ -7,8 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
-  },
+    "lint": "eslint .", // Esta linha deve estar presente
+    "test": "jest"
+},
   "jest": {
     "preset": "jest-expo"
   },
