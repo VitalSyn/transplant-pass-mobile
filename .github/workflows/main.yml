@@ -1,0 +1,39 @@
+name: React Native CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x] # Testar diferentes versões do Node.js
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Watchman (requisito para React Native)
+        run: |
+          sudo apt-get install -y watchman
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
