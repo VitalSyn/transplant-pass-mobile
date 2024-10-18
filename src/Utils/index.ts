@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export function formatPhone(v: string): string {
   var r = v.replace(/\D/g, "");
   r = r.replace(/^0/, "");
@@ -55,4 +57,19 @@ export function validateEmail(email: string): RegExpMatchArray | null {
   return email.match(
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
+};
+
+
+/**
+ * Converte e formata um Firebase Timestamp para uma string de data legível.
+ * 
+ * @param {Timestamp | { seconds: number, nanoseconds: number }} timestamp - O timestamp a ser formatado.
+ * @param {string} locale - O idioma para formatação da data (opcional, padrão é 'pt-BR').
+ * @returns {string} - A data formatada.
+ */
+export const formatFirebaseDate = (
+  timestamp: Timestamp | { seconds: number, nanoseconds: number }
+): string => {
+  const date = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
+  return date.toLocaleDateString('pt-BR');
 };

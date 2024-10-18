@@ -1,11 +1,10 @@
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
 import { authInstance, firestore } from '../Db/firebase';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { doc, getDoc, setDoc, updateDoc, collection } from 'firebase/firestore';
-import { View } from 'react-native';
-import Colors from '../Constants/Colors';
-import { LoadingIndicator } from '../Components/LoadingIndicator';
+import { getNotifications } from '../Db/components/patient';
+import { INotification } from '../Interfaces';
 
 interface User {
   email: string;
@@ -27,11 +26,17 @@ interface AuthContextData {
   login: (email: string, password: string) => Promise<boolean>;
   updateUser: (data: User, id: string) => Promise<boolean>;
   createUser: (data: User) => Promise<boolean>;
+  notifications: INotification[] | undefined;
+  getAllNotifications: () => Promise<INotification[] | undefined>;
 }
 
 export const AuthContext = createContext<AuthContextData>({
   signed: false,
   user: null,
+  notifications: [],
+  getAllNotifications: async () => {
+    return [];
+  },
   signOutApp: async () => { },
   login: async () => false,
   updateUser: async () => false,
@@ -46,6 +51,7 @@ const STORAGE_KEY = '@user_data';
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+  const [notifications, setNotifications] = useState<INotification[] | undefined>();
   const [loading, setLoading] = useState(true);
 
   const loadUserData = async () => {
@@ -80,7 +86,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
           if (!docSnapshot.exists()) {
             console.log('No such user!');
-            return false;
+            return;
           }
 
           const userData: User = { ...docSnapshot.data(), id: firebaseUser.uid } as User;
@@ -171,11 +177,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const getAllNotifications = async () => {
+    if (user?.id) {
+      const result = await getNotifications(user.id);
+      setNotifications(result);
+      return result
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
         signed: !!user,
+        notifications,
+        getAllNotifications,
         signOutApp,
         login,
         updateUser,

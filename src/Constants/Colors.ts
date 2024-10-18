@@ -20,6 +20,8 @@ export default {
   red: '#FF0000',
   gray: '#50515F',
   default: '#126B43',
+  green_gradiente: '#6CCFA4',
+  green_light: '#DFFFF1',
   drawer: '#F1F1F1',
   gray_tab: '#748c94',
   white: '#fff',

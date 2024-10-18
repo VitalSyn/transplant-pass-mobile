@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, SafeAreaView, Image, ScrollView } from 'react-native'
-import React, { useContext } from 'react'
+import { View, Text, TouchableOpacity, SafeAreaView, Image, ScrollView, RefreshControl } from 'react-native'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import AuthContext from '@/src/Context/AuthContext';
 import { useNavigationHandler } from '@/src/Hooks/navigation';
 import styles from './styles';
@@ -15,16 +15,49 @@ import Feather from '@expo/vector-icons/Feather';
 import images from '@/src/Constants/images';
 import Colors from '@/src/Constants/Colors';
 import { Divider } from 'react-native-paper';
+import { INotification } from '@/src/Interfaces';
 
 export default function Home() {
-  const { user, signOutApp } = useContext(AuthContext);
+  const { user, notifications, getAllNotifications, signOutApp } = useContext(AuthContext);
   const navigate = useNavigationHandler();
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await getAllNotifications();
+    setIsRefreshing(false);
+  }, []);
+
+  const countUnreadNotifications = async () => {
+    const result = await getAllNotifications()
+    console.log('home: ', result)
+    setNotificationCount(result?.filter(notification => !notification.isRead).length || 0)
+  };
+
+  useEffect(() => {
+    countUnreadNotifications()
+  }, [])
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flexDirection: 'row', margin: 20, justifyContent: 'space-between' }}>
         <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity onPress={() => navigate.navigate("Notifications")} style={styles.backgroundButtonInformation}>
-            <Ionicons name="notifications-outline" size={24} color="black" />
+          <TouchableOpacity
+            onPress={() => navigate.navigate("Notifications")} style={styles.notificationButtonContainer}>
+            <View
+              style={styles.backgroundButtonInformation}
+            >
+              <Ionicons name="notifications-outline" size={24} color="black" />
+            </View>
+
+            {notificationCount > 0 && (
+              <View style={styles.notificationBadge}>
+                <Text style={styles.notificationText}>
+                  {notificationCount}
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.backgroundButtonInformation}>
@@ -65,7 +98,14 @@ export default function Home() {
         <AntDesign name="right" size={24} color="white" />
       </TouchableOpacity>
 
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
         <View style={{ marginTop: 20 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Agende seus exames</Text>
