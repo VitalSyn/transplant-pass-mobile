@@ -11,6 +11,8 @@
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
+    "owner": "vitalsynsolutions",
+    "runtimeVersion": "1.0.0",
     "ios": {
       "supportsTablet": true
     },

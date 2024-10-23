@@ -15,11 +15,24 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     flex: 1,
-    textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.white,
   },
-})
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    marginLeft: 20
+  },
+  iconContainer: {
+    marginRight: 8, // Espaço entre o ícone e o título
+  },
+  rightComponentContainer: {
+    // Estilo para o componente à direita
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default styles;

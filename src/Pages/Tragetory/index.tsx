@@ -5,7 +5,7 @@ import Colors from "@/src/Constants/Colors";
 import { useNavigationHandler } from "@/src/Hooks/navigation";
 import styles from "./styles";
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import ScreenHeader from "@/src/Components/ScreenHeader";
+import Header from "@/src/Components/Header";
 import { getNotifications } from "@/src/Db/components/patient";
 import { INotification } from "@/src/Interfaces";
 import AuthContext from "@/src/Context/AuthContext";
@@ -54,7 +54,7 @@ export default function Tragetory() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScreenHeader title="Sua Tragetória" />
+      <Header title="Sua Tragetória" />
 
       {/* Filtros */}
       <View style={styles.filterContainer}>

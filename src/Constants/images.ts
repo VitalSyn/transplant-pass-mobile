@@ -9,4 +9,8 @@ export default {
   Onboarding1: require("../../assets/images/Onboarding1.png"),
   Onboarding2: require("../../assets/images/Onboarding2.png"),
   Onboarding3: require("../../assets/images/Onboarding3.png"),
+  Frame: require("../../assets/images/Frame.png"),
+  robo: require("../../assets/images/robo.png"),
+  User: require("../../assets/images/robo.png"),
+  AvatarTereza: require("../../assets/images/avatarRobo.png"),
 }
